@@ -23,12 +23,17 @@
                     <td class="d-inline-block col-2">{{$donate->created_at}}</td>
                     <td class="d-inline-block col-2">
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-4">
+                                <a href="{{ route('donates.show', $donate->id) }}" class="btn btn-secondary">
+                                    <span class="fa fa-search-plus" title="loupe"></span>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
                                 <a href="{{ route('donates.edit', $donate->id) }}" class="btn btn-primary">
                                     <span class="fa fa-pencil-alt" title="pencil"></span>
                                 </a>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <form action="{{ route('donates.destroy', $donate->id)}}" method="post">
                                     @csrf
                                     @method('DELETE')

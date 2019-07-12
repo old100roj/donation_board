@@ -9,7 +9,7 @@
                     <div class="alert alert-danger">
                         <ul>
                             @foreach($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                                <li>{{$error}}</li>
                             @endforeach
                         </ul>
                     </div>
@@ -26,7 +26,7 @@
                                 type="text"
                                 class="form-control"
                                 name="name"
-                                value="@if (!is_null(old('name'))) {{old('name')}} @elseif (isset($donate)) {{$donate->name}} @endif"
+                                value="@if(!is_null(old('name'))){{old('name')}}@elseif(isset($donate)){{$donate->name}}@endif"
                                 required
                             />
                         </div>
@@ -37,7 +37,7 @@
                                 type="text"
                                 class="form-control"
                                 name="email"
-                                value="@if (!is_null(old('email'))) {{old('email')}} @elseif (isset($donate)) {{$donate->email}} @endif"
+                                value="@if (!is_null(old('email'))){{old('email')}}@elseif (isset($donate)){{$donate->email}}@endif"
                                 required
                             />
                         </div>
@@ -48,7 +48,7 @@
                                 id="donationAmount"
                                 class="form-control"
                                 name="donationAmount"
-                                value="@if (!is_null(old('donationAmount'))) {{old('donationAmount')}} @elseif (isset($donate)) {{$donate->donation_amount}} @endif"
+                                value="@if (!is_null(old('donationAmount'))){{old('donationAmount')}}@elseif (isset($donate)){{$donate->donation_amount}}@endif"
                                 required
                             />
 
@@ -61,7 +61,7 @@
                                 class="form-control"
                                 name="message"
                                 required
-                            >@if (!is_null(old('message'))) {{old('message')}} @elseif (isset($donate)) {{$donate->message}} @endif</textarea>
+                            >@if (!is_null(old('message'))){{old('message')}}@elseif (isset($donate)){{$donate->message}}@endif</textarea>
                         </div>
 
                         <div class="form-group">
