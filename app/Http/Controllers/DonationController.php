@@ -34,7 +34,7 @@ class DonationController extends Controller
         $search = (string)$request->get('search');
 
         if ($search !== '') {
-            $model->where(function ($query) use($search){
+            $model->where(function (Builder $query) use ($search) {
                 $search = '%' . $search . '%';
                 $query
                     ->where('name', 'like', $search)
@@ -60,20 +60,24 @@ class DonationController extends Controller
         $minDate = $request->get('min_date');
 
         if (!is_null($minDate)) {
-            $model->where('created_at', '>=', (string)$minDate);
+            $model->whereDate('created_at', '>=', (string)$minDate);
         }
 
         $maxDate = $request->get('max_date');
 
         if (!is_null($maxDate)) {
-            $model->where('created_at', '<=', (string)$maxDate);
+            $model->whereDate('created_at', '<=', (string)$maxDate);
         }
 
-        DB::enableQueryLog();
+//        DB::enableQueryLog();
         $donates = $model->paginate(10);
-        dd(DB::getQueryLog());
 
-        return view('pages.welcome', ['donates' => $donates->appends($request->except('page'))]);
+//        dd(DB::getQueryLog());
+
+        return view('pages.welcome', [
+            'donates' => $donates->appends($request->except('page')),
+            'top' => ''
+        ]);
     }
 
     /**

@@ -57,9 +57,11 @@
                                 <label class="col-form-label">Search by amount:</label>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <div class="col-md-6">min</div>
                                         <input type="number" class="form-control" id="min_amount" name="min_amount">
                                     </div>
                                     <div class="col-md-6">
+                                        <div class="col-md-6">max</div>
                                         <input type="number" class="form-control" id="max_amount" name="max_amount">
                                     </div>
                                 </div>
@@ -68,9 +70,11 @@
                                 <label class="col-form-label">Search by date:</label>
                                 <div class="row">
                                     <div class="col-md-6">
+                                        <div class="col-md-6">min</div>
                                         <input type="date" class="form-control" id="min_date" name="min_date">
                                     </div>
                                     <div class="col-md-6">
+                                        <div class="col-md-6">max</div>
                                         <input type="date" class="form-control" id="max_date" name="max_date">
                                     </div>
                                 </div>
@@ -90,5 +94,21 @@
         @yield('content')
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const getParams = ['search', 'min_amount', 'max_amount', 'min_date', 'max_date'];
+        const url = new URL(window.location);
+        let paramValue = null;
+
+        for (let param of getParams) {
+            paramValue = url.searchParams.get(param);
+
+            if (paramValue !== null) {
+                $('#' + param).val(paramValue);
+            }
+        }
+    });
+</script>
 </body>
 </html>
