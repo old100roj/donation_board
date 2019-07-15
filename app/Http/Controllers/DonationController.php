@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Donation;
+use Carbon\Carbon;
 use DB;
 use Illuminate\Container\Container;
 use Illuminate\Contracts\Container\BindingResolutionException;
@@ -13,11 +14,11 @@ use Illuminate\Http\Response;
 class DonationController extends Controller
 {
     /** @var Container */
-    private $app;
+    private $container;
 
     public function __construct(Container $container)
     {
-        $this->app = $container;
+        $this->container = $container;
     }
 
     /**
@@ -29,12 +30,11 @@ class DonationController extends Controller
      */
     public function index(Request $request)
     {
-        $model = $this->app->make(Donation::class);
-        $model = $model->newModelQuery(); // remove
+        $builder = $this->getBuilder();
         $search = (string)$request->get('search');
 
         if ($search !== '') {
-            $model->where(function (Builder $query) use ($search) {
+            $builder->where(function (Builder $query) use ($search) {
                 $search = '%' . $search . '%';
                 $query
                     ->where('name', 'like', $search)
@@ -47,36 +47,62 @@ class DonationController extends Controller
 
         if (!is_null($minAmount)) {
             $minAmount = round((float)$minAmount, 2);
-            $model->where('donation_amount', '>=', $minAmount);
+            $builder->where('donation_amount', '>=', $minAmount);
         }
 
         $maxAmount = $request->get('max_amount');
 
         if (!is_null($maxAmount)) {
             $maxAmount = round((float)$maxAmount, 2);
-            $model->where('donation_amount', '<=', $maxAmount);
+            $builder->where('donation_amount', '<=', $maxAmount);
         }
 
         $minDate = $request->get('min_date');
 
         if (!is_null($minDate)) {
-            $model->whereDate('created_at', '>=', (string)$minDate);
+            $builder->whereDate('created_at', '>=', (string)$minDate);
         }
 
         $maxDate = $request->get('max_date');
 
         if (!is_null($maxDate)) {
-            $model->whereDate('created_at', '<=', (string)$maxDate);
+            $builder->whereDate('created_at', '<=', (string)$maxDate);
         }
 
 //        DB::enableQueryLog();
-        $donates = $model->paginate(10);
+        $donates = $builder->paginate(10);
+
+        $totalAmountData = DB::table('donations')
+            ->selectRaw('name, SUM(donation_amount) as TotalAmount')
+            ->groupBy('name')
+            ->orderByDesc('TotalAmount')
+            ->first()
+        ;
+
+        $currentDate = Carbon::now();
+
+        $builder = $this->getBuilder();
+        $currentMonthAmount = $builder
+            ->selectRaw('SUM(donation_amount) as monthly_amount_sum')
+            ->whereYear('created_at', $currentDate->year)
+            ->whereMonth('created_at', $currentDate->month)
+            ->first()
+        ;
+
+        $builder = $this->getBuilder();
+        $allTimeAmount = $builder
+            ->sum('donation_amount')
+        ;
+
+//        dd((array)$totalAmountData);
 
 //        dd(DB::getQueryLog());
 
         return view('pages.welcome', [
             'donates' => $donates->appends($request->except('page')),
-            'top' => ''
+            'top' => (array)$totalAmountData,
+            'month' => $currentMonthAmount->toArray(),
+            'allTime' => $allTimeAmount
         ]);
     }
 
@@ -181,5 +207,14 @@ class DonationController extends Controller
         Donation::where('id', $id)->delete();
 
         return redirect()->back();
+    }
+
+    /**
+     * @return Builder
+     * @throws BindingResolutionException
+     */
+    private function getBuilder(): Builder
+    {
+        return $this->container->make(Donation::class)->newModelQuery();
     }
 }
