@@ -23,18 +23,70 @@
 </head>
 <body>
 <div id="app">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-dark bg-dark">
         <a class="navbar-brand" href="{{ route('donates.index') }}">{{__('Donations')}}</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('donates.create') }}">{{__('Make Donation')}}</a>
+            </li>
+        </ul>
+        <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#exampleModal"
+            data-whatever="@mdo"
+        >Open modal for search</button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('donates.create') }}">{{__('Make Donation')}}</a>
-                </li>
-            </ul>
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <form method="get" action="{{ route('donates.index') }}">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Search</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="search" class="col-form-label">Text Search:</label>
+                                <input type="text" class="form-control" id="search" name="search">
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Search by amount:</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">min</div>
+                                        <input type="number" class="form-control" id="min_amount" name="min_amount">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">max</div>
+                                        <input type="number" class="form-control" id="max_amount" name="max_amount">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Search by date:</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">min</div>
+                                        <input type="date" class="form-control" id="min_date" name="min_date">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="col-md-6">max</div>
+                                        <input type="date" class="form-control" id="max_date" name="max_date">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -42,5 +94,21 @@
         @yield('content')
     </div>
 </div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        const getParams = ['search', 'min_amount', 'max_amount', 'min_date', 'max_date'];
+        const url = new URL(window.location);
+        let paramValue = null;
+
+        for (let param of getParams) {
+            paramValue = url.searchParams.get(param);
+
+            if (paramValue !== null) {
+                $('#' + param).val(paramValue);
+            }
+        }
+    });
+</script>
 </body>
 </html>
