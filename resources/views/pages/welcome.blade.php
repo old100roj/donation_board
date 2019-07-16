@@ -1,6 +1,30 @@
 @extends('layouts.app')
 
 @section('content')
+    <div class="row px-2">
+        @if(array_key_exists('TotalAmount', $top) && array_key_exists('name', $top))
+            <div class="card m-1 text-white bg-primary col-md" style="width: 18rem">
+                <div class="text-center">
+                    <p>Top Donator</p>
+                    <h3>{{$top['TotalAmount']}}$</h3>
+                    <p>{{$top['name']}}</p>
+                </div>
+            </div>
+        @endif
+        <div class="card m-1 text-white bg-success col-md" style="width: 18rem">
+            <div class="text-center">
+                <p>Last Month Amount</p>
+                <h3>{{$month['monthly_amount_sum']}}$</h3>
+            </div>
+        </div>
+        <div class="card m-1 text-white bg-danger col-md" style="width: 18rem">
+            <div class="text-center">
+                <p>All Time Amount</p>
+                <h3>{{$allTime}}$</h3>
+            </div>
+        </div>
+    </div>
+
     <table  class="table table-striped table-dark">
         <thead>
         <tr class="row m-0">

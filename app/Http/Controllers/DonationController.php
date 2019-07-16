@@ -69,7 +69,6 @@ class DonationController extends Controller
             $builder->whereDate('created_at', '<=', (string)$maxDate);
         }
 
-//        DB::enableQueryLog();
         $donates = $builder->paginate(10);
 
         $totalAmountData = DB::table('donations')
@@ -93,10 +92,6 @@ class DonationController extends Controller
         $allTimeAmount = $builder
             ->sum('donation_amount')
         ;
-
-//        dd((array)$totalAmountData);
-
-//        dd(DB::getQueryLog());
 
         return view('pages.welcome', [
             'donates' => $donates->appends($request->except('page')),
