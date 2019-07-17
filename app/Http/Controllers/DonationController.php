@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Donation\DonationRepository;
+use App\Services\MonthlyAmountRetriever;
+use App\Services\TopDonatorRetriever;
 use App\Structures\SearchData;
 use Illuminate\Container\Container;
 use Illuminate\Http\RedirectResponse;
@@ -21,15 +23,27 @@ class DonationController extends Controller
     /** @var DonationRepository */
     private $donationRepository;
 
+    private $topDonatorRetriver;
+
+    private $monthlyAmountRetriever;
+
     /**
      * DonationController constructor.
      * @param Container $container
      * @param DonationRepository $donationRepository
+     * @param TopDonatorRetriever $topDonatorRetriever
+     * @param MonthlyAmountRetriever $monthlyAmountRetriever
      */
-    public function __construct(Container $container, DonationRepository $donationRepository)
-    {
+    public function __construct(
+        Container $container,
+        DonationRepository $donationRepository,
+        TopDonatorRetriever $topDonatorRetriever,
+        MonthlyAmountRetriever $monthlyAmountRetriever
+    ) {
         $this->container = $container;
         $this->donationRepository = $donationRepository;
+        $this->topDonatorRetriver = $topDonatorRetriever;
+        $this->monthlyAmountRetriever = $monthlyAmountRetriever;
     }
 
     /**
@@ -50,8 +64,8 @@ class DonationController extends Controller
 
         return view('pages.welcome', [
             'donates' => $this->donationRepository->search($searchData, $getParams),
-            'top' => $this->donationRepository->topDonator(),
-            'month' => $this->donationRepository->monthlyAmount(),
+            'topDonator' => $this->topDonatorRetriver->topDonator(),
+            'month' => $this->monthlyAmountRetriever->monthlyAmount(),
             'allTime' => $this->donationRepository->allTimeAmount()
         ]);
     }

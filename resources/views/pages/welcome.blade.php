@@ -2,19 +2,19 @@
 
 @section('content')
     <div class="row px-2">
-        @if(array_key_exists('TotalAmount', $top) && array_key_exists('name', $top))
+        @if (!is_null($topDonator->amount) && !is_null($topDonator->name))
             <div class="card m-1 text-white bg-primary col-md" style="width: 18rem">
                 <div class="text-center">
                     <p>Top Donator</p>
-                    <h3>{{$top['TotalAmount']}}$</h3>
-                    <p>{{$top['name']}}</p>
+                    <h3>{{$topDonator->amount}}$</h3>
+                    <p>{{$topDonator->name}}</p>
                 </div>
             </div>
         @endif
         <div class="card m-1 text-white bg-success col-md" style="width: 18rem">
             <div class="text-center">
                 <p>Last Month Amount</p>
-                <h3>{{$month['monthly_amount_sum']}}$</h3>
+                <h3>{{$month}}$</h3>
             </div>
         </div>
         <div class="card m-1 text-white bg-danger col-md" style="width: 18rem">
