@@ -76,7 +76,7 @@ class DonationController extends Controller
     {
         $request->validate([
             'name'=>['required', 'string', 'max:50'],
-            'email'=>['required', 'string', 'email', 'max:255', 'unique:donations'],
+            'email'=>['required', 'string', 'email', 'max:255'],
             'donationAmount'=>['required', 'regex:/\d+(\.\d{1,2})?$/'],
             'message'=>['required', 'string', 'max:3000']
         ]);

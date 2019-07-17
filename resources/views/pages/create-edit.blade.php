@@ -46,6 +46,9 @@
                             <label for="donationAmount" class="align-self">{{ __('Amount $') }}</label>
                             <input
                                 id="donationAmount"
+                                type="number"
+                                step="0.01"
+                                min="0.01"
                                 class="form-control"
                                 name="donationAmount"
                                 value="@if (!is_null(old('donationAmount'))){{old('donationAmount')}}@elseif (isset($donate)){{$donate->donation_amount}}@endif"

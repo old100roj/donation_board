@@ -15,9 +15,11 @@ use Illuminate\Database\Eloquent\Model;
  */
 abstract class BaseRepository implements BaseRepositoryInterface
 {
+    //ЭТО property(свойство(а не перменная)) Класса BaseRepository
     /** @var Model */
     protected $model;
 
+    //injecting обект класса Conteiner
     /**
      * BaseRepository constructor.
      * @param Container $container
@@ -25,9 +27,12 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function __construct(Container $container)
     {
+        //метод model() возвращает название класса(строку)
+        //setting в перемнную модел название класса, обект которого нужно создать
         $model = $this->model();
 
         try {
+            //сетим в свойство модел, созданый обект класса модел
             $this->model = $container->make($model);
         } catch (BindingResolutionException $exception) {
             throw new RepositoryException("The $model was not created. " . $exception->getMessage());
@@ -87,6 +92,7 @@ abstract class BaseRepository implements BaseRepositoryInterface
         return $this->model->newModelQuery();
     }
 
+    //создаём прототип метода, чтоб в дальнейшом определить его в дочернем классе
     /**
      * @return string
      */

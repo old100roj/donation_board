@@ -58,11 +58,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="col-md-6">min</div>
-                                        <input type="number" class="form-control" id="min_amount" name="min_amount">
+                                        <input type="number" step="0.01" min="0.01" class="form-control" id="min_amount" name="min_amount">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="col-md-6">max</div>
-                                        <input type="number" class="form-control" id="max_amount" name="max_amount">
+                                        <input type="number" step="0.01" min="0.01" class="form-control" id="max_amount" name="max_amount">
                                     </div>
                                 </div>
                             </div>

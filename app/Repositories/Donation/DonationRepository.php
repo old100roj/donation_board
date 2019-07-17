@@ -15,6 +15,7 @@ use Illuminate\Database\Eloquent\Builder;
  */
 class DonationRepository extends BaseRepository
 {
+    //родительский класс обязует создать implementation метода модел, который должен возвращять название класса нужной для создания модели
     /**
      * @return string
      */
