@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Donation\DonationRepository;
-use App\Services\MonthlyAmountRetriever;
-use App\Services\TopDonatorRetriever;
+use App\Services\DonationsDataRetriever;
 use App\Structures\SearchData;
-use Illuminate\Container\Container;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -17,33 +15,24 @@ use Illuminate\Http\Response;
  */
 class DonationController extends Controller
 {
-    /** @var Container */
-    private $container;
+
+    /** @var DonationsDataRetriever */
+    private $donationData;
 
     /** @var DonationRepository */
     private $donationRepository;
 
-    private $topDonatorRetriver;
-
-    private $monthlyAmountRetriever;
-
     /**
      * DonationController constructor.
-     * @param Container $container
+     * @param DonationsDataRetriever $donationData
      * @param DonationRepository $donationRepository
-     * @param TopDonatorRetriever $topDonatorRetriever
-     * @param MonthlyAmountRetriever $monthlyAmountRetriever
      */
     public function __construct(
-        Container $container,
-        DonationRepository $donationRepository,
-        TopDonatorRetriever $topDonatorRetriever,
-        MonthlyAmountRetriever $monthlyAmountRetriever
+        DonationsDataRetriever $donationData,
+        DonationRepository $donationRepository
     ) {
-        $this->container = $container;
+        $this->donationData = $donationData;
         $this->donationRepository = $donationRepository;
-        $this->topDonatorRetriver = $topDonatorRetriever;
-        $this->monthlyAmountRetriever = $monthlyAmountRetriever;
     }
 
     /**
@@ -62,11 +51,10 @@ class DonationController extends Controller
         $searchData->setMaxDate((string)$request->get('max_date'));
         $getParams = $request->except('page');
 
+
+
         return view('pages.welcome', [
-            'donates' => $this->donationRepository->search($searchData, $getParams),
-            'topDonator' => $this->topDonatorRetriver->topDonator(),
-            'month' => $this->monthlyAmountRetriever->monthlyAmount(),
-            'allTime' => $this->donationRepository->allTimeAmount()
+            'donationsData' => $this->donationData->getDonationData($searchData, $getParams)
         ]);
     }
 

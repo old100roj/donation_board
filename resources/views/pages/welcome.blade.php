@@ -2,25 +2,25 @@
 
 @section('content')
     <div class="row px-2">
-        @if (!is_null($topDonator->amount) && !is_null($topDonator->name))
+        @if (!is_null($donationsData->topDonator->amount) && !is_null($donationsData->topDonator->name))
             <div class="card m-1 text-white bg-primary col-md" style="width: 18rem">
                 <div class="text-center">
                     <p>Top Donator</p>
-                    <h3>{{$topDonator->amount}}$</h3>
-                    <p>{{$topDonator->name}}</p>
+                    <h3>{{$donationsData->topDonator->amount}}$</h3>
+                    <p>{{$donationsData->topDonator->name}}</p>
                 </div>
             </div>
         @endif
         <div class="card m-1 text-white bg-success col-md" style="width: 18rem">
             <div class="text-center">
                 <p>Last Month Amount</p>
-                <h3>{{$month}}$</h3>
+                <h3>{{$donationsData->mounthlyAmount}}$</h3>
             </div>
         </div>
         <div class="card m-1 text-white bg-danger col-md" style="width: 18rem">
             <div class="text-center">
                 <p>All Time Amount</p>
-                <h3>{{$allTime}}$</h3>
+                <h3>{{$donationsData->allTimeAmount}}$</h3>
             </div>
         </div>
     </div>
@@ -38,7 +38,7 @@
 
         </thead>
         <tbody>
-            @foreach($donates as $donate)
+            @foreach($donationsData->donations as $donate)
                 <tr class="row m-0">
                     <td class="d-inline-block col-2">{{$donate->name}}</td>
                     <td class="d-inline-block col-3">{{$donate->email}}</td>
@@ -73,6 +73,6 @@
         </tbody>
     </table>
     <div class="pagination justify-content-center">
-    {{ $donates->links() }}
+    {{ $donationsData->donations->links() }}
     </div>
 @endsection

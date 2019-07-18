@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\Donation\DonationRepository;
+use App\Structures\DonationsData;
+use App\Structures\SearchData;
 
 class DonationsDataRetriever
 {
@@ -26,6 +28,21 @@ class DonationsDataRetriever
         $this->topDonatorRetriever = $topDonatorRetriever;
         $this->donationRepository = $donationRepository;
     }
-    
+
+    public function getDonationData(SearchData $searchData, array $getParams): DonationsData
+    {
+        $topDonator = $this->topDonatorRetriever->topDonator();
+        $mounthlyAmount = $this->monthlyAmountRetriever->monthlyAmount();
+        $allTimeAmount = $this->donationRepository->allTimeAmount();
+        $donations = $this->donationRepository->search($searchData, $getParams);
+
+        $donationsData = new DonationsData();
+        $donationsData->topDonator = $topDonator;
+        $donationsData->mounthlyAmount = $mounthlyAmount;
+        $donationsData->allTimeAmount = $allTimeAmount;
+        $donationsData->donations = $donations;
+
+        return $donationsData;
+    }
 
 }
