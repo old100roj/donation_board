@@ -59,6 +59,10 @@ class DonationRepository extends BaseRepository
             $builder->whereDate('created_at', '<=', $searchData->maxDate);
         }
 
+        if (count($searchData->exceptNames) > 0) {
+            $builder->whereNotIn('name', $searchData->exceptNames);
+        }
+
         return $builder->paginate(10)->appends($getParams);
     }
 
@@ -98,5 +102,13 @@ class DonationRepository extends BaseRepository
     public function allTimeAmount(): string
     {
         return $this->getBuilder()->sum('donation_amount');
+    }
+
+    /**
+     * @return Donation[]
+     */
+    public function getUniqByName(): iterable
+    {
+        return $this->getBuilder()->select(['name'])->distinct()->get();
     }
 }

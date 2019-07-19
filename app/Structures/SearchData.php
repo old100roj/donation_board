@@ -23,6 +23,9 @@ class SearchData
     /** @var string */
     public $maxDate;
 
+    /** @var array */
+    public $exceptNames;
+
     /**
      * @param float $amount
      * @return SearchData

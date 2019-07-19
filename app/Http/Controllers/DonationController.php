@@ -27,10 +27,8 @@ class DonationController extends Controller
      * @param DonationsDataRetriever $donationData
      * @param DonationRepository $donationRepository
      */
-    public function __construct(
-        DonationsDataRetriever $donationData,
-        DonationRepository $donationRepository
-    ) {
+    public function __construct(DonationsDataRetriever $donationData, DonationRepository $donationRepository)
+    {
         $this->donationData = $donationData;
         $this->donationRepository = $donationRepository;
     }
@@ -49,9 +47,8 @@ class DonationController extends Controller
         $searchData->setMaxAmount((float)$request->get('max_amount'));
         $searchData->setMinDate((string)$request->get('min_date'));
         $searchData->setMaxDate((string)$request->get('max_date'));
+        $searchData->exceptNames = (array)$request->get('except');
         $getParams = $request->except('page');
-
-
 
         return view('pages.welcome', [
             'donationsData' => $this->donationData->getDonationData($searchData, $getParams)

@@ -79,6 +79,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @render(App\ViewComponents\ExceptDonatesComponent)
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -97,11 +98,21 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        const getParams = ['search', 'min_amount', 'max_amount', 'min_date', 'max_date'];
+        const except = 'except[]';
+        const getParams = ['search', 'min_amount', 'max_amount', 'min_date', 'max_date', except];
         const url = new URL(window.location);
         let paramValue = null;
+        let exceptNames = [];
 
         for (let param of getParams) {
+            if (param === except) {
+                exceptNames = url.searchParams.getAll(except);
+                for (let name of exceptNames) {
+                    $('#checkbox_' + name).select();
+                }
+                continue;
+            }
+
             paramValue = url.searchParams.get(param);
 
             if (paramValue !== null) {
