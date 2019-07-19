@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Repositories\Donation\DonationRepository;
+use App\Services\DonationsDataRetriever;
 use App\Structures\SearchData;
-use Illuminate\Container\Container;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -15,20 +15,23 @@ use Illuminate\Http\Response;
  */
 class DonationController extends Controller
 {
-    /** @var Container */
-    private $container;
+
+    /** @var DonationsDataRetriever */
+    private $donationData;
 
     /** @var DonationRepository */
     private $donationRepository;
 
     /**
      * DonationController constructor.
-     * @param Container $container
+     * @param DonationsDataRetriever $donationData
      * @param DonationRepository $donationRepository
      */
-    public function __construct(Container $container, DonationRepository $donationRepository)
-    {
-        $this->container = $container;
+    public function __construct(
+        DonationsDataRetriever $donationData,
+        DonationRepository $donationRepository
+    ) {
+        $this->donationData = $donationData;
         $this->donationRepository = $donationRepository;
     }
 
@@ -48,11 +51,10 @@ class DonationController extends Controller
         $searchData->setMaxDate((string)$request->get('max_date'));
         $getParams = $request->except('page');
 
+
+
         return view('pages.welcome', [
-            'donates' => $this->donationRepository->search($searchData, $getParams),
-            'top' => $this->donationRepository->topDonator(),
-            'month' => $this->donationRepository->monthlyAmount(),
-            'allTime' => $this->donationRepository->allTimeAmount()
+            'donationsData' => $this->donationData->getDonationData($searchData, $getParams)
         ]);
     }
 
