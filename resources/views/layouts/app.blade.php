@@ -58,11 +58,11 @@
                                 <div class="row">
                                     <div class="col-md-6">
                                         <div class="col-md-6">min</div>
-                                        <input type="number" class="form-control" id="min_amount" name="min_amount">
+                                        <input type="number" step="0.01" min="0.01" class="form-control" id="min_amount" name="min_amount">
                                     </div>
                                     <div class="col-md-6">
                                         <div class="col-md-6">max</div>
-                                        <input type="number" class="form-control" id="max_amount" name="max_amount">
+                                        <input type="number" step="0.01" min="0.01" class="form-control" id="max_amount" name="max_amount">
                                     </div>
                                 </div>
                             </div>
@@ -79,6 +79,7 @@
                                     </div>
                                 </div>
                             </div>
+                            @render(App\ViewComponents\ExceptDonatesComponent)
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -97,11 +98,24 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
-        const getParams = ['search', 'min_amount', 'max_amount', 'min_date', 'max_date'];
+        const except = 'except[]';
+        const getParams = ['search', 'min_amount', 'max_amount', 'min_date', 'max_date', except];
         const url = new URL(window.location);
         let paramValue = null;
+        let exceptNames = [];
 
         for (let param of getParams) {
+            if (param === except) {
+                exceptNames = url.searchParams.getAll(except);
+
+                for (let name of exceptNames) {
+                    name = btoa(name).split('=').join('\\=');
+                    $('#checkbox_' + name).prop("checked", true);
+                }
+
+                continue;
+            }
+
             paramValue = url.searchParams.get(param);
 
             if (paramValue !== null) {
