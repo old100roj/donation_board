@@ -107,9 +107,12 @@
         for (let param of getParams) {
             if (param === except) {
                 exceptNames = url.searchParams.getAll(except);
+
                 for (let name of exceptNames) {
-                    $('#checkbox_' + name).select();
+                    name = btoa(name).split('=').join('\\=');
+                    $('#checkbox_' + name).prop("checked", true);
                 }
+
                 continue;
             }
 
