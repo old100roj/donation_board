@@ -1,0 +1,25 @@
+@import "profile";
+
+div.user-type-software {
+  margin-left: 1%;
+  width: 98%;
+}
+
+a {
+  &:hover, &:active {
+    color: #9900FF;
+    text-decoration: underline;
+  }
+}
+
+.fullwidth {
+  width: 98%;
+  margin: 0 1%;
+}
+
+.admin_head {
+  font-size: 18px;
+  color: #00457C;
+  padding-left: 10px;
+  float: left;
+}
