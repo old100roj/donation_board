@@ -1,0 +1,10 @@
+<template>
+  <div>
+    <b-table
+      striped
+      hover
+      :items="items"
+      :fields="fields"
+    />
+  </div>
+</template>

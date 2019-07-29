@@ -1,8 +1,0 @@
-/.idea/dictionaries
-/.idea/workspace.xml
-/.idea/dbnavigator.xml
-/node_modules
-!/node_modules/.gitkeep
-/yarn-error.log
-dist/*
-!dist/.gitkeep
