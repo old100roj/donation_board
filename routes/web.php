@@ -16,3 +16,5 @@ Route::get('/', function () {
 });
 
 Route::resource('donates', 'DonationController');
+
+Route::get('/getDonates', 'DonationController@getDonates');

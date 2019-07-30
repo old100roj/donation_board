@@ -9,5 +9,10 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Controller extends BaseController
 {
+    public function __construct()
+    {
+        $this->middleware('cors');
+    }
+
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 }

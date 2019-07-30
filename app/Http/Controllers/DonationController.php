@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Donation;
 use App\Repositories\Donation\DonationRepository;
 use App\Services\DonationsDataRetriever;
 use App\Structures\SearchData;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -31,6 +33,7 @@ class DonationController extends Controller
     {
         $this->donationData = $donationData;
         $this->donationRepository = $donationRepository;
+        parent::__construct();
     }
 
     /**
@@ -139,6 +142,33 @@ class DonationController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function getDonates()
+    {
+        return new JsonResponse([
+            (new Donation([
+                'name' => 'aaa',
+                'email' => 'a@a,ru',
+                'donation_amount'=> 25.17,
+                'message' => 'dedy nada',
+                'created_at' => (new \DateTime())
+            ])),
+            (new Donation([
+                'name' => 'bbb',
+                'email' => 'b@b,ru',
+                'donation_amount'=> 26.17,
+                'message' => 'dedy nada',
+                'created_at' => (new \DateTime())
+            ])),
+            (new Donation([
+                'name' => 'vvv',
+                'email' => 'v@v,ru',
+                'donation_amount'=> 25.18,
+                'message' => 'dedy nada',
+                'created_at' => (new \DateTime())
+            ]))
+        ]);
     }
 
     /**
