@@ -40,7 +40,7 @@ class DonationController extends Controller
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function index(Request $request)
     {
@@ -52,10 +52,12 @@ class DonationController extends Controller
         $searchData->setMaxDate((string)$request->get('max_date'));
         $searchData->exceptNames = (array)$request->get('except');
         $getParams = $request->except('page');
+        $page = (int)$request->get('page');
 
-        return view('pages.welcome', [
-            'donationsData' => $this->donationData->getDonationData($searchData, $getParams)
-        ]);
+//        return view('pages.welcome', [
+//            'donationsData' => $this->donationData->getDonationData($searchData, $getParams)
+//        ]);
+        return new JsonResponse($this->donationData->getDonationData($searchData, $getParams, $page));
     }
 
     /**

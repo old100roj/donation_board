@@ -1,3 +1,9 @@
 export default {
-  donations: []
+  donations: [],
+  topDonator: {
+    name: '',
+    amount: null
+  },
+  monthlyAmount: null,
+  allTimeAmount: ''
 }
