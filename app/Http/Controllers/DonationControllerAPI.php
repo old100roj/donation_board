@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Donation;
 use App\Repositories\Donation\DonationRepository;
 use App\Services\DonationsDataRetriever;
 use App\Structures\SearchData;
@@ -14,7 +15,7 @@ use Illuminate\Http\Response;
  * Class DonationController
  * @package App\Http\Controllers
  */
-class DonationController extends Controller
+class DonationControllerAPI extends Controller
 {
 
     /** @var DonationsDataRetriever */
@@ -51,10 +52,9 @@ class DonationController extends Controller
         $searchData->setMaxDate((string)$request->get('max_date'));
         $searchData->exceptNames = (array)$request->get('except');
         $getParams = $request->except('page');
+        $page = (int)$request->get('page');
 
-        return view('pages.welcome', [
-            'donationsData' => $this->donationData->getDonationData($searchData, $getParams)
-        ]);
+        return new JsonResponse($this->donationData->getDonationData($searchData, $getParams, $page));
     }
 
     /**
@@ -141,6 +141,33 @@ class DonationController extends Controller
         ]);
 
         return redirect()->back();
+    }
+
+    public function getDonates()
+    {
+        return new JsonResponse([
+            (new Donation([
+                'name' => 'aaa',
+                'email' => 'a@a,ru',
+                'donation_amount'=> 25.17,
+                'message' => 'dedy nada',
+                'created_at' => (new \DateTime())
+            ])),
+            (new Donation([
+                'name' => 'bbb',
+                'email' => 'b@b,ru',
+                'donation_amount'=> 26.17,
+                'message' => 'dedy nada',
+                'created_at' => (new \DateTime())
+            ])),
+            (new Donation([
+                'name' => 'vvv',
+                'email' => 'v@v,ru',
+                'donation_amount'=> 25.18,
+                'message' => 'dedy nada',
+                'created_at' => (new \DateTime())
+            ]))
+        ]);
     }
 
     /**

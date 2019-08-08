@@ -4,13 +4,12 @@
       deck
       class="row px-2"
     >
-      <topDonator />
-      <monthlyAmount />
-      <allTimeAmount />
+      <topDonator class="m-1" />
+      <monthlyAmount class="m-1" />
+      <allTimeAmount class="m-1" />
     </b-card-group>
-    <br>
     <b-table
-      striped
+      striped.
       hover
       class="table table-striped table-dark"
       :items="getDonationsInfo"

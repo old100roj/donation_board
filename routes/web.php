@@ -17,4 +17,6 @@ Route::get('/', function () {
 
 Route::resource('donates', 'DonationController');
 
-Route::get('/getDonates', 'DonationController@getDonates');
+Route::resource('donatesAPI', 'DonationControllerAPI');
+
+Route::get('/getDonates', 'DonationControllerAPI@getDonates');

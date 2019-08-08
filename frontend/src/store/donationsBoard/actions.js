@@ -4,7 +4,7 @@ import names from '../../constants/names'
 
 export default {
   [names.actions.getDonationsBoard] ({ commit }) {
-    axios.get('http://donationboard.loc/donates').then((response) => {
+    axios.get('http://donationboard.loc/donatesAPI').then((response) => {
       if (PropChecker.has(response, 'data')) {
         console.log(response.data)
         commit(names.mutations.setDonationsBoard, response.data.donations.data)

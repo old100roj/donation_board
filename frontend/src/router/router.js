@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/',
       // name: 'user-profile',
-      // component: UserProfileComponent
+      // component: UserPro fileComponent
       name: 'donations',
       component: DonationsBoardComponent
     }
