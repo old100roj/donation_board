@@ -10,15 +10,15 @@ export default new Router({
   routes: [
     {
       path: '/',
-      // name: 'user-profile',
-      // component: UserPro fileComponent
       name: 'donations',
       component: DonationsBoardComponent
+    },
+    {
+      path: '/edit/:id',
+      name: 'edit',
+      component: {
+        template: '<div>Пользователь {{ $route.params.id }}</div>'
+      }
     }
-    // {
-    //   path: '/donations',
-    //   name: 'donations',
-    //   component: DonationsBoardComponent
-    // }
   ]
 })

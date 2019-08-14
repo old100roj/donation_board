@@ -16,6 +16,7 @@
     "bootstrap": "^4.3.1",
     "bootstrap-vue": "^2.0.0-rc.27",
     "portal-vue": "^2.1.5",
+    "to-case": "^2.0.0",
     "vue": "^2.6.10"
   },
   "devDependencies": {

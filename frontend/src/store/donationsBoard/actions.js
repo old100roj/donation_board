@@ -1,10 +1,12 @@
 import axios from 'axios'
 import PropChecker from '../../services/PropChecker'
 import names from '../../constants/names'
+import SnaleGetParamsURICreator from './../../services/SnakeGetParamsURICreator'
 
 export default {
-  [names.actions.getDonationsBoard] ({ commit }) {
-    axios.get('http://donationboard.loc/donatesAPI').then((response) => {
+  [names.actions.getDonationsBoard] ({ commit }, query) {
+    const queryStr = SnaleGetParamsURICreator.getQueryStr(query)
+    axios.get('http://donationboard.loc/donatesAPI' + queryStr).then((response) => {
       if (PropChecker.has(response, 'data')) {
         console.log(response.data)
         commit(names.mutations.setDonationsBoard, response.data.donations.data)
