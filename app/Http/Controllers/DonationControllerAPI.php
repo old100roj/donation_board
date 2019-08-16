@@ -91,15 +91,15 @@ class DonationControllerAPI extends Controller
         return redirect('/donates')->with('success', 'Donation accepted, thank you!');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return Response
-     */
+  /**
+   * Display the specified resource.
+   *
+   * @param int $id
+   * @return JsonResponse
+   */
     public function show($id)
     {
-        return view('pages.loupe', ['donate' => $this->donationRepository->find($id)]);
+        return new JsonResponse($this->donationRepository->find($id));
     }
 
     /**

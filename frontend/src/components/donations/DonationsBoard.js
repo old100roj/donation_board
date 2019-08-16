@@ -13,6 +13,9 @@ export default {
   computed: {
     getDonationsInfo () {
       return this.$store.state.donations.donations
+    },
+    tableColumn () {
+      return ['name', 'email', 'donation_amount', 'message', 'created_at', 'actions']
     }
   },
 

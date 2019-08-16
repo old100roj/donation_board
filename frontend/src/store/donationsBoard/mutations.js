@@ -7,6 +7,7 @@ export default {
   },
 
   [names.mutations.setTopDonator] (state, topDonator) {
+    // Services.set(['name', 'amount'], state.topDonator, topDonator)
     if (PropChecker.has(topDonator, 'name')) {
       state.topDonator.name = topDonator.name
     }
@@ -17,7 +18,6 @@ export default {
 
   [names.mutations.setMonthlyAmount] (state, monthlyAmount) {
     state.monthlyAmount = monthlyAmount
-    console.log(state.monthlyAmount)
   },
 
   [names.mutations.setAllTimeAmount] (state, allTimeAmount) {

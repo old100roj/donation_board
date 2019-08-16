@@ -8,7 +8,6 @@ export default {
     const queryStr = SnaleGetParamsURICreator.getQueryStr(query)
     axios.get('http://donationboard.loc/donatesAPI' + queryStr).then((response) => {
       if (PropChecker.has(response, 'data')) {
-        console.log(response.data)
         commit(names.mutations.setDonationsBoard, response.data.donations.data)
         if (PropChecker.has(response.data, 'topDonator')) {
           commit(names.mutations.setTopDonator, response.data.topDonator)
