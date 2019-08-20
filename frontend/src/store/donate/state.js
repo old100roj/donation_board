@@ -1,6 +1,7 @@
 export default {
-  name: '',
-  email: '',
-  amount: 0,
-  message: ''
+  name: null,
+  email: null,
+  amount: null,
+  message: null,
+  id: null
 }

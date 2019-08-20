@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="alert alert-danger" v-if>
+      <ul />
+    </div>
     <b-form-group
       label="Name"
     >

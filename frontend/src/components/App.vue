@@ -7,13 +7,15 @@
       type="dark"
       variant="dark"
     >
-      <b-navbar-brand href="#">
+      <b-navbar-brand>
         Donations
       </b-navbar-brand>
       <b-navbar-nav>
-        <b-nav-item href="#">
+        <router-link
+          :to="{ name: 'createDonate'}"
+        >
           Make Donation
-        </b-nav-item>
+        </router-link>
       </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-button v-b-modal.exampleModal>

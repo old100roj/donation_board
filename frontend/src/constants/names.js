@@ -1,7 +1,8 @@
 export default {
   actions: {
     getDonationsBoard: 'GET_DONATIONS_BOARD',
-    getDonate: 'GET_DONATE'
+    getDonate: 'GET_DONATE',
+    updateDonate: 'UPDATE_DONATE'
   },
   getters: {
 
@@ -14,7 +15,8 @@ export default {
     setName: 'SET_NAME',
     setEmail: 'SET_EMAIL',
     setAmount: 'SET_AMOUNT',
-    setMessage: 'SET_MESSAGE'
+    setMessage: 'SET_MESSAGE',
+    setID: 'SET_ID'
   },
   state: {
 

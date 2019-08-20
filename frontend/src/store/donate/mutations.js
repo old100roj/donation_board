@@ -15,5 +15,9 @@ export default {
 
   [names.mutations.setMessage] (state, message) {
     state.message = message
+  },
+
+  [names.mutations.setID] (state, id) {
+    state.id = id
   }
 }

@@ -9,12 +9,13 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controller as BaseController;
 
 /**
  * Class DonationController
  * @package App\Http\Controllers
  */
-class DonationController extends Controller
+class DonationController extends BaseController
 {
 
     /** @var DonationsDataRetriever */
@@ -32,7 +33,6 @@ class DonationController extends Controller
     {
         $this->donationData = $donationData;
         $this->donationRepository = $donationRepository;
-        parent::__construct();
     }
 
     /**

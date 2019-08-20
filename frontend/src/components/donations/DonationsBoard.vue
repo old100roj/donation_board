@@ -19,32 +19,28 @@
         slot="actions"
         slot-scope="row"
       >
-        <router-link
-          :to="{ name: 'edit', params: { id: row.item.id }}"
-          class="btn btn-primary"
-        >
-          <span
-            class="fa fa-pencil-alt"
-            title="pencil"
-          />
-        </router-link>
-        <router-link
-          :to="{ name: 'scope', params: { id: row.item.id}}"
-          class="btn btn-secondary"
-        >
-          <span
-            class="fa fa-search-plus"
-            title="loupe"
-          />
-        </router-link>
-        <router-link :to="{ name: 'delete', params: { id: row.item.id}}">
-          <button
-            class="btn btn-danger"
-            type="submit"
+        <div class="row">
+          <router-link
+            :to="{ name: 'show', params: { id: row.item.id}}"
+            class="btn btn-secondary"
           >
-            <span class="fa fa-trash" />
-          </button>
-        </router-link>
+            <font-awesome-icon icon="search-plus" />
+          </router-link>
+          <router-link
+            :to="{ name: 'edit', params: { id: row.item.id }}"
+            class="btn btn-primary"
+          >
+            <font-awesome-icon icon="pencil-alt" />
+          </router-link>
+          <router-link :to="{ name: 'delete', params: { id: row.item.id}}">
+            <button
+              class="btn btn-danger"
+              type="submit"
+            >
+              <font-awesome-icon icon="trash" />
+            </button>
+          </router-link>
+        </div>
       </template>
     </b-table>
   </div>

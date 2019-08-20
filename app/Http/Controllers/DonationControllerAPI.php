@@ -7,15 +7,17 @@ use App\Repositories\Donation\DonationRepository;
 use App\Services\DonationsDataRetriever;
 use App\Structures\SearchData;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 /**
  * Class DonationController
  * @package App\Http\Controllers
  */
-class DonationControllerAPI extends Controller
+class DonationControllerAPI extends BaseController
 {
 
     /** @var DonationsDataRetriever */
@@ -33,7 +35,6 @@ class DonationControllerAPI extends Controller
     {
         $this->donationData = $donationData;
         $this->donationRepository = $donationRepository;
-        parent::__construct();
     }
 
     /**
@@ -71,7 +72,7 @@ class DonationControllerAPI extends Controller
      * Store a newly created resource in storage.
      *
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -88,7 +89,7 @@ class DonationControllerAPI extends Controller
             'donation_amount'=> $request->get('donationAmount'),
             'message' => $request->get('message')
         ]);
-        return redirect('/donates')->with('success', 'Donation accepted, thank you!');
+        return new JsonResponse(redirect('/donates')->with('success', 'Donation accepted, thank you!'));
     }
 
   /**
@@ -106,7 +107,7 @@ class DonationControllerAPI extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return Response
+     * @return JsonResponse
      */
     public function edit($id)
     {
@@ -114,7 +115,7 @@ class DonationControllerAPI extends Controller
             return redirect(route('donates.create'));
         }
 
-        return view('pages.create-edit', ['donate' => $this->donationRepository->find($id)]);
+        return new JsonResponse($this->donationRepository->find($id));
     }
 
     /**
@@ -122,16 +123,20 @@ class DonationControllerAPI extends Controller
      *
      * @param Request $request
      * @param  int  $id
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'name'=>['required', 'string', 'max:50'],
-            'email'=>['required', 'string', 'email', 'max:255', 'unique:donations,email,' . $id],
-            'donationAmount'=>['required', 'regex:/^\d+(\.\d{1,2})?$/'],
-            'message'=>['required', 'string', 'max:3000']
+        $validator = Validator::make($request->all(), [
+            'name' => ['required', 'string', 'max:50'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:donations,email,' . $id],
+            'donationAmount' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+            'message' => ['required', 'string', 'max:3000']
         ]);
+
+        if ($validator->fails()) {
+            return new JsonResponse(['errors' => $validator->errors()->all()], Response::HTTP_BAD_REQUEST);
+        }
 
         $this->donationRepository->update($id, [
             'name' => $request->get('name'),
@@ -140,33 +145,8 @@ class DonationControllerAPI extends Controller
             'message' => $request->get('message')
         ]);
 
-        return redirect()->back();
-    }
-
-    public function getDonates()
-    {
         return new JsonResponse([
-            (new Donation([
-                'name' => 'aaa',
-                'email' => 'a@a,ru',
-                'donation_amount'=> 25.17,
-                'message' => 'dedy nada',
-                'created_at' => (new \DateTime())
-            ])),
-            (new Donation([
-                'name' => 'bbb',
-                'email' => 'b@b,ru',
-                'donation_amount'=> 26.17,
-                'message' => 'dedy nada',
-                'created_at' => (new \DateTime())
-            ])),
-            (new Donation([
-                'name' => 'vvv',
-                'email' => 'v@v,ru',
-                'donation_amount'=> 25.18,
-                'message' => 'dedy nada',
-                'created_at' => (new \DateTime())
-            ]))
+            'updated' => true
         ]);
     }
 
@@ -174,12 +154,12 @@ class DonationControllerAPI extends Controller
      * Remove the specified resource from storage.
      *
      * @param $id
-     * @return RedirectResponse
+     * @return JsonResponse
      */
     public function destroy($id)
     {
         $this->donationRepository->delete($id);
 
-        return redirect()->back();
+      return new JsonResponse(redirect()->back());
     }
 }
