@@ -19,6 +19,12 @@ export default {
     }
   },
 
+  methods: {
+    deleteDonate (id) {
+      this.$store.dispatch(names.actions.deleteDonate, id, this.$route.query)
+    }
+  },
+
   created () {
     this.$store.dispatch(names.actions.getDonationsBoard, this.$route.query)
   }

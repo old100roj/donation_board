@@ -19,5 +19,9 @@ export default {
 
   [names.mutations.setID] (state, id) {
     state.id = id
+  },
+
+  [names.mutations.setErrors] (state, errors) {
+    state.errors = errors
   }
 }

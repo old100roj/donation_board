@@ -32,7 +32,7 @@ interface BaseRepositoryInterface
 
     /**
      * @param int $id
-     * @return Model
+     * @return Model|null
      */
-    public function find(int $id): Model;
+    public function find(int $id): ?Model;
 }

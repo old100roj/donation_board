@@ -5,7 +5,7 @@
       <DonateForm />
       <b-button
         type="button"
-        class="btn btn-outline-success"
+        variant="outline-success"
         @click="update()"
       >
         Submit

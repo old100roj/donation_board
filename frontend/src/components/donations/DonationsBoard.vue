@@ -32,14 +32,12 @@
           >
             <font-awesome-icon icon="pencil-alt" />
           </router-link>
-          <router-link :to="{ name: 'delete', params: { id: row.item.id}}">
-            <button
-              class="btn btn-danger"
-              type="submit"
-            >
-              <font-awesome-icon icon="trash" />
-            </button>
-          </router-link>
+          <b-button
+            class="btn btn-danger"
+            @click="deleteDonate(row.item.id)"
+          >
+            <font-awesome-icon icon="trash" />
+          </b-button>
         </div>
       </template>
     </b-table>

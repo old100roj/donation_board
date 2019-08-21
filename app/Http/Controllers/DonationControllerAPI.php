@@ -158,8 +158,8 @@ class DonationControllerAPI extends BaseController
      */
     public function destroy($id)
     {
-        $this->donationRepository->delete($id);
-
-      return new JsonResponse(redirect()->back());
+        return new JsonResponse([
+            'deleted' => $this->donationRepository->delete($id)
+        ]);
     }
 }

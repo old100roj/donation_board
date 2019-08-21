@@ -3,5 +3,6 @@ export default {
   email: null,
   amount: null,
   message: null,
-  id: null
+  id: null,
+  errors: []
 }

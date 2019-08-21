@@ -16,10 +16,7 @@ export default {
       console.log(error)
     })
   },
-  test () {
-    console.log(777)
-  },
-  [names.actions.updateDonate] ({ rootState }) {
+  [names.actions.updateDonate] ({ rootState, commit }) {
     console.log(rootState.donate)
     const donate = {
       name: rootState.donate.name,
@@ -32,9 +29,8 @@ export default {
       //
       // }
       console.log(response)
-    }).catch((error) => {
-      // commit
-      console.log(error)
+    }).catch((errors) => {
+      commit(names.mutations.setErrors, errors.response.data.errors)
     })
   }
 }

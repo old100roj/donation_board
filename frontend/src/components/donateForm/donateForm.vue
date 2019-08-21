@@ -1,7 +1,17 @@
 <template>
   <div>
-    <div class="alert alert-danger" v-if>
-      <ul />
+    <div
+      v-if="errors.length > 0"
+      class="alert alert-danger"
+    >
+      <ul>
+        <li
+          v-for="error in errors"
+          :key="error.id"
+        >
+          {{ error }}
+        </li>
+      </ul>
     </div>
     <b-form-group
       label="Name"

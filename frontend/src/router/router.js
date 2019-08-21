@@ -22,12 +22,7 @@ export default new Router({
     {
       path: '/show/:id',
       name: 'show',
-      component: EditComponent
-    },
-    {
-      path: '/delete/:id',
-      name: 'delete',
-      component: EditComponent
+      component: DonationsBoardComponent
     },
     {
       path: '/createDonate',
