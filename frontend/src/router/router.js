@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import DonationsBoardComponent from '../components/donations/DonationsBoard.vue'
 import EditComponent from '../components/edit/Edit.vue'
 import CreateDonateComponent from '../components/create/Create.vue'
+import ShowComponent from '../components/show/Show.vue'
 
 Vue.use(Router)
 
@@ -22,7 +23,7 @@ export default new Router({
     {
       path: '/show/:id',
       name: 'show',
-      component: DonationsBoardComponent
+      component: ShowComponent
     },
     {
       path: '/createDonate',

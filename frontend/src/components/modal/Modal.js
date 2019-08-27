@@ -1,20 +1,52 @@
-import SnakeGetParamsCreator from './../../services/SnakeGetParamsURICreator'
 import names from '../../constants/names'
 
 export default {
-  data () {
-    return {
-      search: null,
-      minAmount: null,
-      maxAmount: null,
-      minDate: null,
-      maxDate: null
+  computed: {
+    search: {
+      get () {
+        return this.$store.state.modal.search
+      },
+      set (value) {
+        this.$store.commit(names.mutations.setSearch, value)
+      }
+    },
+    minDate: {
+      get () {
+        return this.$store.state.modal.minDate
+      },
+      set (value) {
+        this.$store.commit(names.mutations.setMinDate, value)
+      }
+    },
+    maxDate: {
+      get () {
+        return this.$store.state.modal.maxDate
+      },
+      set (value) {
+        this.$store.commit(names.mutations.setMaxDate, value)
+      }
+    },
+    minAmount: {
+      get () {
+        return this.$store.state.modal.minAmount
+      },
+      set (value) {
+        this.$store.commit(names.mutations.setMinAmount, value)
+      }
+    },
+    maxAmount: {
+      get () {
+        return this.$store.state.modal.maxAmount
+      },
+      set (value) {
+        this.$store.commit(names.mutations.setMaxAmount, value)
+      }
     }
   },
   methods: {
     handleSubmit () {
-      this.$router.push({ name: 'donations', query: SnakeGetParamsCreator.getQueryObj(this.$data) })
-      this.$store.dispatch(names.actions.getDonationsBoard, this.$route.query)
+      this.$router.push({ name: 'donations' })
+      this.$store.dispatch(names.actions.getDonationsBoard)
     }
   }
 }

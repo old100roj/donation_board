@@ -43,7 +43,7 @@ class DonationsDataRetriever
         $paginatedData->lastPage = $donationsData->donations->lastPage();
         $paginatedData->records = $donationsData->donations->items();
 
-        $donationsData->paginationBlock = PaginationHelper::generatePaginationBlock($paginatedData, '/donations?page=');
+        $donationsData->paginationBlock = PaginationHelper::generatePaginationBlock($paginatedData, '');
 
         return $donationsData;
     }

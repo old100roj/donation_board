@@ -58,11 +58,11 @@ class PaginationHelper
         $isFirst = $current == $first;
         $isLast = $current == $last;
         $diapason = self::VISIBLE_PAGES_RADIUS;
-        $href = '#';
+        $toPage = 1;
         $dots = '...';
         self::addPageItem($paginationBlock, '<<', $baseUri . $prevPage, $isFirst, $hasPages);
         self::addPageItem($paginationBlock, '' . $first, $baseUri . $first, $isFirst, $hasPages && $current > $first);
-        self::addPageItem($paginationBlock, $dots, $href, true, $hasPages && ($prevPage - $diapason) > $first);
+        self::addPageItem($paginationBlock, $dots, $toPage, true, $hasPages && ($prevPage - $diapason) > $first);
 
         for ($i = -1 * $diapason; $i <= $diapason; $i++) {
             $number = $current + $i;
@@ -70,7 +70,7 @@ class PaginationHelper
             self::addPageItem($paginationBlock, '' . $number, $baseUri . $number, $i == 0, $hasPages && $display);
         }
 
-        self::addPageItem($paginationBlock, $dots, $href, true, $hasPages && ($nextPage + $diapason) < $last);
+        self::addPageItem($paginationBlock, $dots, $toPage, true, $hasPages && ($nextPage + $diapason) < $last);
         self::addPageItem($paginationBlock, '' . $last, $baseUri . $last, $isLast, $hasPages);
         self::addPageItem($paginationBlock, '>>', $baseUri . $nextPage, $isLast, $hasPages);
 
@@ -100,20 +100,20 @@ class PaginationHelper
     /**
      * @param array $array
      * @param string $text
-     * @param string $href
+     * @param string $toPage
      * @param bool $disabled
      * @param bool $display
      */
     private static function addPageItem(
         array &$array,
         string $text,
-        string $href,
+        string $toPage,
         bool $disabled,
         bool $display
     ): void {
-        $pageItem = new PageItem($text, $href, $disabled, $display);
+        $pageItem = new PageItem($text, $toPage, $disabled);
 
-        if ($pageItem->display) {
+        if ($display) {
             $array[] = $pageItem;
         }
     }

@@ -9,7 +9,6 @@ export default {
       },
       set (value) {
         this.$store.commit(names.mutations.setName, value)
-        console.log(this.$store.state.donate.name)
       }
     },
     email: {
@@ -38,7 +37,6 @@ export default {
     },
     errors: {
       get () {
-        console.log(this.$store.state.donate.errors)
         return this.$store.state.donate.errors
       }
     }

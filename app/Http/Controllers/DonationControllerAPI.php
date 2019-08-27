@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Donation;
 use App\Repositories\Donation\DonationRepository;
 use App\Services\DonationsDataRetriever;
 use App\Structures\SearchData;
@@ -10,7 +9,6 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 /**
@@ -76,12 +74,16 @@ class DonationControllerAPI extends BaseController
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name'=>['required', 'string', 'max:50'],
-            'email'=>['required', 'string', 'email', 'max:255'],
-            'donationAmount'=>['required', 'regex:/\d+(\.\d{1,2})?$/'],
-            'message'=>['required', 'string', 'max:3000']
-        ]);
+      $validator = Validator::make($request->all(), [
+        'name' => ['required', 'string', 'max:50'],
+        'email' => ['required', 'string', 'email', 'max:255'],
+        'donationAmount' => ['required', 'regex:/^\d+(\.\d{1,2})?$/'],
+        'message' => ['required', 'string', 'max:3000']
+      ]);
+
+      if ($validator->fails()) {
+        return new JsonResponse(['errors' => $validator->errors()->all()], Response::HTTP_BAD_REQUEST);
+      }
 
        $this->donationRepository->create([
             'name' => $request->get('name'),
@@ -89,7 +91,10 @@ class DonationControllerAPI extends BaseController
             'donation_amount'=> $request->get('donationAmount'),
             'message' => $request->get('message')
         ]);
-        return new JsonResponse(redirect('/donates')->with('success', 'Donation accepted, thank you!'));
+
+      return new JsonResponse([
+        'updated' => true
+      ]);
     }
 
   /**

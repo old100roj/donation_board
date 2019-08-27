@@ -8,7 +8,11 @@
       variant="dark"
     >
       <b-navbar-brand>
-        Donations
+        <router-link
+          :to="{ name: 'donations'}"
+        >
+          Donations
+        </router-link>
       </b-navbar-brand>
       <b-navbar-nav>
         <router-link

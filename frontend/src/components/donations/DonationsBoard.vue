@@ -41,6 +41,7 @@
         </div>
       </template>
     </b-table>
+    <pagination />
   </div>
 </template>
 <script src="./DonationsBoard.js"></script>

@@ -17,18 +17,25 @@ export default {
     })
   },
   [names.actions.updateDonate] ({ rootState, commit }) {
-    console.log(rootState.donate)
     const donate = {
       name: rootState.donate.name,
       email: rootState.donate.email,
       donationAmount: rootState.donate.amount,
       message: rootState.donate.message
     }
-    axios.put('http://donationboard.loc/donatesAPI/' + rootState.donate.id, donate).then((response) => {
-      // if (PropChecker.has(response, 'updated')) {
-      //
-      // }
-      console.log(response)
+    axios.put('http://donationboard.loc/donatesAPI/' + rootState.donate.id, donate).then(() => {
+    }).catch((errors) => {
+      commit(names.mutations.setErrors, errors.response.data.errors)
+    })
+  },
+  [names.actions.storeDonate] ({ rootState, commit }) {
+    const donate = {
+      name: rootState.donate.name,
+      email: rootState.donate.email,
+      donationAmount: rootState.donate.amount,
+      message: rootState.donate.message
+    }
+    axios.post('http://donationboard.loc/donatesAPI', donate).then(() => {
     }).catch((errors) => {
       commit(names.mutations.setErrors, errors.response.data.errors)
     })

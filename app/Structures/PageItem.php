@@ -4,8 +4,8 @@ namespace App\Structures;
 
 class PageItem
 {
-    /** @var string */
-    public $href;
+    /** @var int */
+    public $toPage;
 
     /** @var bool */
     public $disabled;
@@ -13,14 +13,10 @@ class PageItem
     /** @var string */
     public $text;
 
-    /** @var bool */
-    public $display;
-
-    public function __construct(string $text, string $href, bool $disabled, bool $display)
+    public function __construct(string $text, int $toPage, bool $disabled)
     {
         $this->text = $text;
-        $this->href = $href;
+        $this->toPage = $toPage;
         $this->disabled = $disabled;
-        $this->display = $display;
     }
 }

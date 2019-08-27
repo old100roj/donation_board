@@ -19,7 +19,7 @@ export default {
     }
 
     if (str === '?') {
-      return ''
+      return '?'
     }
 
     return str.slice(0, -1)

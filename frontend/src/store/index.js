@@ -1,15 +1,17 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import ProfileModule from './profile'
 import DonationBoardModule from './donationBoard'
 import Donate from './donate'
+import Pagination from './pagination'
+import Modal from './modal'
 
 Vue.use(Vuex)
 
 const modules = {
-  profile: ProfileModule,
   donations: DonationBoardModule,
-  donate: Donate
+  donate: Donate,
+  pagination: Pagination,
+  modal: Modal
 }
 
 export default new Vuex.Store({ modules: modules })

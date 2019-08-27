@@ -2,12 +2,14 @@ import names from '../../constants/names'
 import ComponentTopDonator from './topDonator/TopDonator.vue'
 import ComponentMonthlyAmount from './monthlyAmount/MonthlyAmount.vue'
 import ComponentAllTimeAmount from './allTimeAmount/AllTimeAmount.vue'
+import PaginationComponent from './../pagination/Pagination.vue'
 
 export default {
   components: {
     topDonator: ComponentTopDonator,
     monthlyAmount: ComponentMonthlyAmount,
-    allTimeAmount: ComponentAllTimeAmount
+    allTimeAmount: ComponentAllTimeAmount,
+    pagination: PaginationComponent
   },
 
   computed: {
@@ -21,11 +23,12 @@ export default {
 
   methods: {
     deleteDonate (id) {
-      this.$store.dispatch(names.actions.deleteDonate, id, this.$route.query)
+      this.$store.dispatch(names.actions.deleteDonate, id)
     }
   },
 
   created () {
-    this.$store.dispatch(names.actions.getDonationsBoard, this.$route.query)
+    this.$store.commit(names.mutations.setAction, names.actions.getDonationsBoard)
+    this.$store.dispatch(names.actions.getDonationsBoard)
   }
 }
