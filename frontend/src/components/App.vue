@@ -17,6 +17,7 @@
       <b-navbar-nav>
         <router-link
           :to="{ name: 'createDonate'}"
+          class="nav-item"
         >
           Make Donation
         </router-link>
