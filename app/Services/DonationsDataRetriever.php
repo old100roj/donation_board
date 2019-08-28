@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Repositories\Donation\DonationRepository;
 use App\Structures\DonationsData;
+use App\Structures\PaginatedData;
 use App\Structures\SearchData;
 
 class DonationsDataRetriever
@@ -29,18 +30,20 @@ class DonationsDataRetriever
         $this->donationRepository = $donationRepository;
     }
 
-    public function getDonationData(SearchData $searchData, array $getParams): DonationsData
+    public function getDonationData(SearchData $searchData, array $getParams, int $currentPage = 1): DonationsData
     {
-        $topDonator = $this->topDonatorRetriever->topDonator();
-        $mounthlyAmount = $this->monthlyAmountRetriever->monthlyAmount();
-        $allTimeAmount = $this->donationRepository->allTimeAmount();
-        $donations = $this->donationRepository->search($searchData, $getParams);
-
         $donationsData = new DonationsData();
-        $donationsData->topDonator = $topDonator;
-        $donationsData->mounthlyAmount = $mounthlyAmount;
-        $donationsData->allTimeAmount = $allTimeAmount;
-        $donationsData->donations = $donations;
+        $donationsData->topDonator = $this->topDonatorRetriever->topDonator();
+        $donationsData->mounthlyAmount = $this->monthlyAmountRetriever->monthlyAmount();
+        $donationsData->allTimeAmount = $this->donationRepository->allTimeAmount();
+        $donationsData->donations = $this->donationRepository->search($searchData, $getParams);
+
+        $paginatedData = new PaginatedData();
+        $paginatedData->currentPage = ($currentPage > 0) ? $currentPage : 1;
+        $paginatedData->lastPage = $donationsData->donations->lastPage();
+        $paginatedData->records = $donationsData->donations->items();
+
+        $donationsData->paginationBlock = PaginationHelper::generatePaginationBlock($paginatedData, '');
 
         return $donationsData;
     }

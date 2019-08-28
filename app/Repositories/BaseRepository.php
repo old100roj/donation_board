@@ -55,7 +55,13 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function update(int $id, array $data): int
     {
-        return $this->find($id)->update($data);
+        $model = $this->find($id);
+
+        if (is_null($model)) {
+          return 0;
+        }
+
+        return $model->update($data);
     }
 
     /**
@@ -64,10 +70,14 @@ abstract class BaseRepository implements BaseRepositoryInterface
      */
     public function delete(int $id): int
     {
-        $deleted = true;
+        $entity = $this->find($id);
+
+        if (is_null($entity)) {
+           return false;
+        }
 
         try {
-            $this->find($id)->delete();
+            $deleted = (bool)$entity->delete();
         } catch (Exception $exception) {
             $deleted = false;
         }
@@ -77,9 +87,9 @@ abstract class BaseRepository implements BaseRepositoryInterface
 
     /**
      * @param int $id
-     * @return Model
+     * @return Model|null
      */
-    public function find(int $id): Model
+    public function find(int $id): ?Model
     {
         return $this->model->find($id);
     }

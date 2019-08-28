@@ -17,4 +17,7 @@ class DonationsData
 
     /** @var LengthAwarePaginator */
     public $donations;
+
+    /** @var array */
+    public $paginationBlock = [];
 }
