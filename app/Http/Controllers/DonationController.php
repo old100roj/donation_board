@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Repositories\Donation\DonationRepository;
 use App\Services\DonationsDataRetriever;
 use App\Structures\SearchData;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
@@ -39,7 +38,7 @@ class DonationController extends BaseController
      * Display a listing of the resource.
      *
      * @param Request $request
-     * @return JsonResponse
+     * @return Response
      */
     public function index(Request $request)
     {

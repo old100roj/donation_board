@@ -22,6 +22,14 @@
           Make Donation
         </router-link>
       </b-navbar-nav>
+      <b-navbar-nav>
+        <router-link
+          :to="{ name: 'register'}"
+          class="nav-item"
+        >
+          Sign Up
+        </router-link>
+      </b-navbar-nav>
       <b-navbar-nav class="ml-auto">
         <b-button v-b-modal.exampleModal>
           Filter

@@ -26,7 +26,7 @@
     >
       <b-form-input
         v-model="email"
-        type="text"
+        type="email"
       />
     </b-form-group>
     <b-form-group

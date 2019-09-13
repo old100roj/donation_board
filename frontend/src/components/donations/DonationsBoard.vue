@@ -81,46 +81,9 @@
             </div>
           </td>
         </tr>
-        <!--    <b-table-->
-        <!--      striped.-->
-        <!--      hover-->
-        <!--      class="table table-striped table-dark"-->
-        <!--      :items="getDonationsInfo"-->
-        <!--      :fields="tableColumn"-->
-        <!--    >-->
-        <!--      <template slot-scope="props">-->
-        <!--        <b-table-column field="name" class="d-inline-block col-12">-->
-        <!--          {{ props.row.name }}-->
-        <!--        </b-table-column>-->
-        <!--        <template-->
-        <!--          slot-scope="row"-->
-        <!--          field="actions"-->
-        <!--        >-->
-        <!--          <div class="row">-->
-        <!--            <router-link-->
-        <!--              :to="{ name: 'show', params: { id: row.item.id}}"-->
-        <!--              class="btn btn-secondary"-->
-        <!--            >-->
-        <!--              <font-awesome-icon icon="search-plus" />-->
-        <!--            </router-link>-->
-        <!--            <router-link-->
-        <!--              :to="{ name: 'edit', params: { id: row.item.id }}"-->
-        <!--              class="btn btn-primary"-->
-        <!--            >-->
-        <!--              <font-awesome-icon icon="pencil-alt" />-->
-        <!--            </router-link>-->
-        <!--            <b-button-->
-        <!--              class="btn btn-danger"-->
-        <!--              @click="deleteDonate(row.item.id)"-->
-        <!--            >-->
-        <!--              <font-awesome-icon icon="trash" />-->
-        <!--            </b-button>-->
-        <!--          </div>-->
-        <!--        </template>-->
-        <!--      </template>-->
-        <!--    </b-table>-->
       </tbody>
     </table>
+    <pagination />
   </div>
 </template>
 <script src="./DonationsBoard.js"></script>

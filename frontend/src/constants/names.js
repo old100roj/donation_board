@@ -6,7 +6,8 @@ export default {
     showDonate: 'SHOW_DONATE',
     deleteDonate: 'DELETE_DONATE',
     getModal: 'GET_MODAL',
-    storeDonate: 'STORE_DONATE'
+    storeDonate: 'STORE_DONATE',
+    postRegister: 'POST_REGISTER'
   },
   getters: {
 
@@ -30,7 +31,10 @@ export default {
     setMinDate: 'SET_MIN_DATE',
     setMaxDate: 'SET_MAX_DATE',
     setCurrentPage: 'SET_CURRENT_PAGE',
-    setAction: 'SET_ACTION'
+    setAction: 'SET_ACTION',
+    setDonationUserName: 'SET_DONATION_USER_NAME',
+    setDonationUserEmail: 'SET_DONATION_USER_EMIL',
+    setRegistrationError: 'SET_REGISTRATION_ERROR'
   },
   state: {
 
